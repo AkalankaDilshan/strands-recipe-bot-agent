@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 module "iam_policy" {
-  source  = "terraform-aws-modules/iam/aws//modules/iam-policy"
+  source = "terraform-aws-modules/iam/aws//modules/iam-policy"
 
   name        = "example"
   path        = "/"

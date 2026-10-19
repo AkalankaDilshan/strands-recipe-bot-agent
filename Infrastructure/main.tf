@@ -2,6 +2,14 @@ provider "aws" {
   region = "us-west-1"
 }
 
+
+
+module "iam_agent_execution" {
+  source = "./modules/iam/agent_execution_Role"
+  agent-name = "recipe-bot-agent-execution-role"
+  
+}
+
 module "iam_policy" {
   source = "terraform-aws-modules/iam/aws//modules/iam-policy"
 

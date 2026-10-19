@@ -1,4 +1,4 @@
-variable "agent-name" {
+variable "iam_role_name" {
   type = string
   description = "agent execution iam role name"
 }

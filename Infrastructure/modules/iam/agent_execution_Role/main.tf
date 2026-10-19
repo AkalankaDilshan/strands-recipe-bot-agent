@@ -2,7 +2,7 @@ data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
 
 resource "aws_iam_role" "agent_execution" {
-  name = "${var.agent-name}-execution-role"
+  name = var.iam_role_name
   assume_role_policy = jsondecode({
     Version = "2012-10-17"
     Statement = [{

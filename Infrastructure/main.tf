@@ -2,38 +2,21 @@ provider "aws" {
   region = "us-west-1"
 }
 
-
-
 module "iam_agent_execution" {
   source = "./modules/iam/agent_execution_Role"
-  agent-name = "recipe-bot-agent-execution-role"
-  
-}
-
-module "iam_policy" {
-  source = "terraform-aws-modules/iam/aws//modules/iam-policy"
-
-  name        = "example"
-  path        = "/"
-  description = "My example policy"
-
-  policy = <<-EOF
-    {
-      "Version": "2012-10-17",
-      "Statement": [
-        {
-          "Action": [
-            "ec2:Describe*"
-          ],
-          "Effect": "Allow",
-          "Resource": "*"
-        }
-      ]
-    }
-  EOF
-
+  iam_role_name = "recipe-bot-agent-execution-role"
   tags = {
-    Terraform   = "true"
-    Environment = "dev"
+    Environment = var.environment
+    Name        = "recipe-bot-agent-execution-role"
+    CreatedBy   = "AkalankaDilshan"
+    ManagedBy   = "Terraform"
   }
 }
+
+module "iam_ecr_builder_role" {
+  source = "./modules/iam/code_builder_role"
+  iam_role_name = "recipe-bot-agent-code-builder-role"
+  agent_ecr_repository_arn = "dfdf" #need to change
+  agent_source_s3_bucket_arn = "dfdf" # need to change
+}
+

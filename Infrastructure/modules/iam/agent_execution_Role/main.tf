@@ -49,7 +49,8 @@ resource "aws_iam_role_policy" "agent_ecr_execution" {
           "ecr:GetDownloadUrlForLayer",
           "ecr:BatchCheckLayerAvailability"
         ]
-        Resource = aws_ecr_repository.agent_ecr.arn
+        #Resource = aws_ecr_repository.agent_ecr.arn
+        Resource = var.ecr_repository_arn 
       },
       {
         Sid      = "ECRTokenAccess"

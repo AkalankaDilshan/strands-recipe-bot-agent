@@ -5,6 +5,8 @@ provider "aws" {
 module "iam_agent_execution_role" {
   source        = "./modules/iam/agent_execution_Role"
   iam_role_name = "recipe-bot-agent-execution-role"
+  ecr_repository_arn = "*"
+  
   tags = {
     Environment = var.environment
     Name        = "recipe-bot-agent-execution-role"

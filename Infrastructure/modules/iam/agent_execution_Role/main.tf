@@ -14,10 +14,10 @@ resource "aws_iam_role" "agent_execution" {
       Action = "sts:AssumeRole"
       Condition = {
         StringEquals = {
-          "aws:SourceAccount" = data.aws_caller_identity.current
+          "aws:SourceAccount" = data.aws_caller_identity.current.account_id
         }
         ArnLike = {
-          "aws:SourceArn" = "arn:aws:bedrock-agentcore:${data.aws_region.current.id}:${data.aws_caller_identity.current.id}:*"
+          "aws:SourceArn" = "arn:aws:bedrock-agentcore:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:*"
         }
       }
     }]
@@ -70,7 +70,7 @@ resource "aws_iam_role_policy" "agent_ecr_execution" {
           "logs:CreateLogStream",
           "logs:PutLogEvents"
         ]
-        Resource = "arn:aws:logs:${data.aws_region.current.id}:${data.aws_caller_identity.current.id}:log-group:/aws/bedrock-agentcore/runtimes/*"
+        Resource = "arn:aws:logs:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:log-group:/aws/bedrock-agentcore/runtimes/*"
       },
       # X-ray Tracing Policy
       {
@@ -119,8 +119,8 @@ resource "aws_iam_role_policy" "agent_ecr_execution" {
           "bedrock-agentcore:GetWorkloadAccessTokenForUserId"
         ]
         Resource = [
-          "arn:aws:bedrock-agentcore:${data.aws_region.current.id}:${data.aws_caller_identity.current.id}:workload-identity-directory/default",
-          "arn:aws:bedrock-agentcore:${data.aws_region.current.id}:${data.aws_caller_identity.current.id}:workload-identity-directory/default/workload-identity/*"
+          "arn:aws:bedrock-agentcore:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:workload-identity-directory/default",
+          "arn:aws:bedrock-agentcore:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:workload-identity-directory/default/workload-identity/*"
         ]
       }
     ]

@@ -3,7 +3,7 @@ data "aws_region" "current" {}
 
 resource "aws_iam_role" "agent_execution" {
   name = var.iam_role_name
-  assume_role_policy = jsondecode({
+  assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
       Sid    = "AssumeRolePolicy"
@@ -37,7 +37,7 @@ resource "aws_iam_role_policy" "agent_ecr_execution" {
   name = "AgentCoreExecutionPolicy"
   role = aws_iam_role.agent_execution.id
 
-  policy = jsondecode({
+  policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       # ECR Access policy

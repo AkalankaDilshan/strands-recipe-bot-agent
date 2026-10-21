@@ -1,5 +1,5 @@
 variable "iam_role_name" {
-  type = string
+  type        = string
   description = "agent execution iam role name"
 }
 
